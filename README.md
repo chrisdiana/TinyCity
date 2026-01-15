@@ -7,7 +7,7 @@
 ![In Game](screens/game.png)
 ![Budget](screens/budget.png)
 
-Manage population growth, power grid, pollution and more in this tiny city sim. Hit milestones to gain bonuses and navigate disasters that are randomly generated.
+Build and manage a growing metropolis in this tiny city sim. Balance zones and resources, hit milestones to gain bonuses and navigate disasters that are randomly generated.
 
 ## Features
 
