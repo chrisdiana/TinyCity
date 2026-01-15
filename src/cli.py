@@ -1,3 +1,13 @@
+"""
+TinyCity command-line interface REPL.
+
+Provides a simple text-based interface to interact with the TinyCity simulation.
+
+How to use:
+- Run the script to start the REPL.
+- Type 'help' to see available commands.
+"""
+
 import shlex
 
 from data import TERRAIN_MAPS, DEFAULT_TERRAIN

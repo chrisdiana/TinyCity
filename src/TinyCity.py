@@ -49,6 +49,7 @@ from data import (
     TERRAIN_MAPS,
     TERRAIN_NAMES,
     DEFAULT_TERRAIN,
+    VERSION,
 )
 from sim import (
     Sim,
@@ -1018,6 +1019,10 @@ def draw_main_menu():
         y = 24 + i * 8
         prefix = ">" if i == menu_index else " "
         thumby.display.drawText(prefix + option, 16, y, 1)
+    version_text = "v" + VERSION
+    version_x = SCREEN_WIDTH - (len(version_text) * 4) - 1
+    version_y = SCREEN_HEIGHT - 6
+    thumby.display.drawText(version_text, version_x, 0, 1)
 
 
 def draw_terrain_menu():
