@@ -27,6 +27,7 @@ Build and manage a growing metropolis in this tiny city sim. Balance zones and r
 - Add parks, trees and schools to attract new residents
 - Add fire and police stations to avoid crime and fight potential fires
 - Monitor pollution levels and heavy traffic to improve growth
+- Play it [online here](https://code.thumby.us/play.html?game=TinyCity) (available soon once arcade PR is merged!)
 
 #### Thanks
 
