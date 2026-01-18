@@ -1251,7 +1251,6 @@ class Sim:
         sim.time_to_next_disaster = time_to_next_disaster
         sim.calculate_power_connectivity()
         sim.count_population()
-        sim.do_budget()
         sim.terrain_index = terrain_index
         sim._rebuild_building_map()
         return sim
