@@ -139,7 +139,7 @@ terrain_index = 0
 random_preview_map = None
 
 SIM = None
-iface = get_interface()
+iface = get_interface("thumby")
 
 
 def proc_at_tile(x, y):
