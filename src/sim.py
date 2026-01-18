@@ -517,6 +517,8 @@ class Sim:
             return False
 
         building = self.buildings[slot]
+        if building.type == BUILDING_RUBBLE:
+            self.destroy_building(building, rubble=False)
         building.type = building_type
         building.x = x
         building.y = y
