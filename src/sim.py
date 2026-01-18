@@ -405,7 +405,9 @@ class Sim:
         return None
 
     def is_terrain_clear(self, x, y):
-        return self.terrain_map[y][x] == 0
+        if 0 <= x < self.map_width and 0 <= y < self.map_height:
+            return self.terrain_map[y][x] == 0
+        return False
 
     def get_connections(self, x, y):
         if 0 <= x < self.map_width and 0 <= y < self.map_height:

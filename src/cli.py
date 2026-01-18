@@ -293,6 +293,9 @@ def repl():
             if building_type is None:
                 print("Unknown building type:", name)
                 continue
+            if not sim.is_tool_unlocked(building_type):
+                print("Building locked for current year.")
+                continue
             x = parse_int(args[1], 0)
             y = parse_int(args[2], 0)
             cost = BUILDING_INFO[building_type]["cost"]

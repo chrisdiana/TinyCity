@@ -1024,8 +1024,8 @@ def draw_main_menu():
         iface.display.drawText(prefix + option, 16, y, 1)
     version_text = "v" + VERSION
     version_x = SCREEN_WIDTH - (len(version_text) * 4) - 1
-    version_y = SCREEN_HEIGHT - 6
-    iface.display.drawText(version_text, version_x, 0, 1)
+    version_y = 0
+    iface.display.drawText(version_text, version_x, version_y, 1)
 
 
 def draw_terrain_menu():
