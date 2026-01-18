@@ -9,6 +9,10 @@ How to use:
 """
 
 import shlex
+try:
+    import readline  # Enables arrow-key history in most terminals.
+except ImportError:
+    readline = None
 
 from data import TERRAIN_MAPS, DEFAULT_TERRAIN
 from sim import (
@@ -27,6 +31,7 @@ from sim import (
     BUILDING_TREES,
     BUILDING_SCHOOL,
     BUILDING_RUBBLE,
+    MAX_BUILDINGS,
     ROAD_MASK,
     POWER_MASK,
     ROAD_COST,
@@ -138,7 +143,7 @@ def show_map(sim, view_x, view_y, view_w, view_h):
 
 
 def print_stats(sim):
-    print("Year {} Month {} Money {}".format(sim.year, sim.month, sim.money))
+    print("{} Money ${}".format(sim.get_month_year(), sim.money))
     print(
         "Pop R{} C{} I{}".format(
             sim.residential_population,
@@ -212,10 +217,11 @@ def repl():
             print("View set to", view_x, view_y, view_w, view_h)
             continue
         if cmd == "step":
-            count = parse_int(args[0], 1) if args else 1
+            steps_per_month = MAX_BUILDINGS + 3
+            count = parse_int(args[0], steps_per_month) if args else steps_per_month
             for _ in range(max(1, count)):
                 sim.simulate_step()
-            print("Stepped", count)
+            print(sim.get_month_year())
             continue
         if cmd == "stats":
             print_stats(sim)
@@ -286,7 +292,23 @@ def repl():
             continue
         if cmd == "build":
             if len(args) < 3:
-                print("Usage: build <type> x y")
+                if args and args[0].lower() in ("help", "?"):
+                    buildable = {}
+                    for name, building_id in BUILDING_NAME_TO_ID.items():
+                        if sim.is_tool_unlocked(building_id):
+                            buildable.setdefault(building_id, []).append(name)
+                    print("Buildable types:")
+                    for building_id in sorted(
+                        buildable, key=lambda bid: BUILDING_INFO[bid]["name"].lower()
+                    ):
+                        info = BUILDING_INFO[building_id]
+                        aliases = ", ".join(sorted(set(buildable[building_id])))
+                        print(
+                            "  {}: {} (${})".format(info["name"], aliases, info["cost"])
+                        )
+                else:
+                    print("Usage: build <type> x y")
+                    print("Try: build help")
                 continue
             name = args[0].lower()
             building_type = BUILDING_NAME_TO_ID.get(name)
