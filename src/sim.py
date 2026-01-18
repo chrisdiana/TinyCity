@@ -547,6 +547,9 @@ class Sim:
         building.on_fire = 0
         if rubble:
             building.type = BUILDING_RUBBLE
+            building.population_density = 0
+            building.heavy_traffic = False
+            building.has_power = False
             building.rubble_width = width
             building.rubble_height = height
             for j in range(building.y, building.y + height):
