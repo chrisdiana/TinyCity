@@ -732,35 +732,40 @@ def init_game(terrain=None):
 
 
 def save_game():
-    try:
+    last_exc = None
+    for attempt in range(2):
         try:
-            iface.saveData.delItem("sim")
-        except Exception:
-            pass
-        if terrain_index >= len(TERRAIN_MAPS):
-            terrain_bytes = bytearray()
-            for row in SIM.terrain_map:
-                terrain_bytes.extend(row)
-            iface.saveData.setItem("terrain_random", terrain_bytes)
-        else:
+            if attempt:
+                init_save_data()
             try:
-                iface.saveData.delItem("terrain_random")
+                iface.saveData.delItem("sim")
             except Exception:
                 pass
-        iface.saveData.setItem(
-            "sim",
-            SIM.to_save_bytes(include_terrain=False, terrain_index=terrain_index),
-        )
-        iface.saveData.save()
-        show_notification("Saved")
-        return True
-    except Exception as exc:
-        try:
-            print("Save error:", exc)
-        except Exception:
-            pass
-        show_notification("Save failed")
-        return False
+            if terrain_index >= len(TERRAIN_MAPS):
+                terrain_bytes = bytearray()
+                for row in SIM.terrain_map:
+                    terrain_bytes.extend(row)
+                iface.saveData.setItem("terrain_random", terrain_bytes)
+            else:
+                try:
+                    iface.saveData.delItem("terrain_random")
+                except Exception:
+                    pass
+            iface.saveData.setItem(
+                "sim",
+                SIM.to_save_bytes(include_terrain=False, terrain_index=terrain_index),
+            )
+            iface.saveData.save()
+            show_notification("Saved")
+            return True
+        except Exception as exc:
+            last_exc = exc
+    try:
+        print("Save error:", last_exc)
+    except Exception:
+        pass
+    show_notification("Save failed")
+    return False
 
 
 def load_game():
